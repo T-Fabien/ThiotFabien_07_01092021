@@ -1,0 +1,87 @@
+main {
+  padding: 0 5%;
+}
+
+.search {
+  align-items: center;
+  display: flex;
+  width: calc(100% + 15px);
+
+  &__input {
+    background-color: #e7e7e7;
+    border: 0;
+    outline: none;
+    padding: 14px 20px;
+    width: 100%;
+  }
+  &__icon {
+    font-size: 20px;
+    left: -35px;
+    position: relative;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-gap: 40px 0;
+  grid-template-columns: repeat(3, minmax(100px, 520px));
+  grid-template-rows: auto;
+  justify-content: space-between;
+  padding-top: 30px;
+  position: relative;
+
+  .card {
+    width: 520px;
+    background-color: #e7e7e7;
+
+    &__description {
+      background-color: #e7e7e7;
+      display: flex;
+      padding: 0 10px 10px 20px;
+      float: left;
+      width: 490px;
+      max-height: 300px;
+    }
+    &__description-tutorial {
+      font-size: 13px;
+      padding-left: 5px;
+      width: 50%;
+      p {
+      }
+    }
+    &__picture {
+      background-color: #c7bebe;
+      height: 150px;
+      width: 100%;
+      margin-bottom: -1px;
+    }
+    &__recipes-item {
+      display: flex;
+      font-size: 13px;
+      &-title {
+        font-weight: 600;
+      }
+    }
+    &__recipes-list {
+      width: 50%;
+    }
+    &__time {
+      display: flex;
+    }
+    &__time-icons {
+    }
+    &__title {
+      align-items: flex-end;
+      background-color: #e7e7e7;
+      display: flex;
+      flex-direction: row;
+      font-weight: 600;
+      justify-content: space-between;
+      margin-top: -3px;
+      padding: 20px 10px 20px 20px;
+    }
+    &__title-text {
+      font-size: 18px;
+    }
+  }
+}
