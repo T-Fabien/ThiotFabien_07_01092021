@@ -22,8 +22,6 @@ class Dish {
     let ingredientList = ``; // empty the list of ingredient
     this.ingredients.forEach((element) => {
       // For each ingredient create html list
-
-      console.log(element);
       let ingredient_name = element.ingredient;
       let ingredient_quantity;
       let ingredient_unit;

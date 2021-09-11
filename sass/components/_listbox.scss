@@ -1,5 +1,6 @@
 .filters {
-    height: 60px;
+    height: 50px;
+    margin: 10px 0;
     width: 100%;
   .filters__dropdown {
     float: left;
@@ -54,12 +55,14 @@
       border: none;
       border-radius: 5px;
       color: white;
-      font: inherit; /* Important for vertical align on mobile phones */
       font-size: 16px;
-      margin: 10px 5px 0 5px; /* Important for vertical align on mobile phones */
+      margin: 0 5px;
       outline: none;
       padding: 12px 10px;
       width: 150px;
+      i{
+          padding-left: 20px;
+      }
     }
     /* Dropdown content (hidden by default) */
     .dropdown-content {
@@ -94,18 +97,21 @@
         border: none;
         border-radius: 5px;
         color: white;
+        font-size: 16px;
         outline: none;
-        padding: 5px 10px;
-        width: 100%;
+        padding: 14px 10px;
+        width: calc(100% - 20px);
         &::placeholder {
           color: white;
+          font-size: 16px;
         }
       }
       &__icon {
         float: right;
-        padding: 0 5px;
+        padding: 0 10px;
         position: relative;
-        top: -23px;
+        top: -34px;
+        font-size: 20px;
       }
     }
 
