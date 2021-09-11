@@ -23,9 +23,7 @@ function CreateFilterButton(button, list) {
 function AddTags(target, value) {
   let parent_item_Classname =
     target.parentElement.parentElement.parentElement.parentElement.className;
-  let parent_item_Color = parent_item_Classname.substring(
-    parent_item_Classname.indexOf("-") + 1
-  );
+  let parent_item_Color = parent_item_Classname.substring(parent_item_Classname.indexOf("-") + 1);
 
   if (value !== undefined) {
     tagsDiv.innerHTML += `
@@ -33,8 +31,7 @@ function AddTags(target, value) {
     <p>${value}</p>
     <i class="far fa-times-circle cross"></i>
     </div>`;
-  }else
-  {
+  } else {
     tagsDiv.innerHTML += `
     <div class="tags-item item-${parent_item_Color}">
     <p>${target.innerHTML}</p>
@@ -121,20 +118,28 @@ const items = document.getElementsByClassName("filter-item");
 
 for (let i = 0; i < items.length; i++) {
   items[i].addEventListener("click", function (event) {
-    let target = event.target;
-    AddTags(target);
+    AddTags(event.target);
   });
 }
 
 // By Specific search bar
+const specific_searchbar = document.getElementsByClassName("dropdown-search__input");
+const specific_search_icon = document.getElementsByClassName("dropdown-search__icon");
 
-const specific_searchbar = document.getElementsByClassName(
-  "dropdown-search__input"
-);
+// Click on search icon
+for (let i = 0; i < specific_search_icon.length; i++) {
+  specific_search_icon[i].addEventListener("click", function (event) {
+    AddTags(event.target, specific_searchbar[i].value);
+    specific_searchbar[i].value = "";
+  });
+}
+
+// Press enter
 for (let i = 0; i < specific_searchbar.length; i++) {
   specific_searchbar[i].addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
       AddTags(event.target, specific_searchbar[i].value);
+      specific_searchbar[i].value = "";
     }
   });
 }
