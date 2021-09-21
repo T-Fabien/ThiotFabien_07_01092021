@@ -127,6 +127,7 @@ function ResearchByTags(researchtag) {
 }*/
 
 // Test Algo
+/*
 function Algo01(value) {
   dishGrid.innerHTML = ``;
   value = value.toLowerCase();
@@ -143,8 +144,8 @@ function Algo01(value) {
       dishGrid.innerHTML += dishCard;
     }
   }
-}
-/*
+}*/
+
 function Algo02(value) {
   dishGrid.innerHTML = ``;
   dishList.forEach((element) => {
@@ -159,7 +160,7 @@ function Algo02(value) {
       dishGrid.innerHTML += dishCard;
     }
   });
-}*/
+}
 
 // - - - - - CODE - - - - -
 
