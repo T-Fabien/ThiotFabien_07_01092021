@@ -48,7 +48,6 @@ function AddTags(target, value) {
   let parent_item_Color = parent_item_Classname.substring(parent_item_Classname.indexOf("-") + 1);
 
   // Check if The Tag already here
-  console.log(tagsDiv.innerHTML.includes(target.innerHTML));
   if (tagsDiv.innerHTML.includes(target.innerHTML) || tagsDiv.innerHTML.includes(value)) {
     alert("Vous recherchez déja par se tag");
   } else {
@@ -68,8 +67,13 @@ function AddTags(target, value) {
         </div>`;
     }
     // Research by tags
-    let search = [target.innerHTML.toLowerCase(), parent_item_Color];
-    researchtag.push(search);
+    let divTags = document.getElementsByClassName('tags-item')
+
+    researchtag = [];
+    for (let i = 0; i < divTags.length; i++) {
+        let search = [divTags[i].firstElementChild.textContent.toLowerCase(), divTags[i].className.substring(divTags[i].className.indexOf("item-") + 5)];
+        researchtag.push(search);
+      }
     ResearchByTags(researchtag);
   }
 
@@ -88,14 +92,19 @@ function AddTags(target, value) {
 function DeleteTags(target) {
   // Remove Tag (Visual)
   target.parentElement.remove();
-  // Reset the grid
-  CreateGrid();
 
   // Delete the Tag from research
   let index = target.previousElementSibling.innerHTML.toLowerCase();
   let taglist = researchtag.filter(function (element) {
     return element[0] != index;
   });
+
+  if (!document.getElementById("tags").innerHTML.toLowerCase().includes("<div")) {
+    researchtag = [];
+  }
+
+  // Reset the grid
+  CreateGrid();
 
   if (document.getElementsByClassName("tags-item").length > 0) {
     ResearchByTags(taglist);
@@ -115,7 +124,6 @@ function ResearchByTags(researchtag) {
 
   // For all Tags
   for (let i = 0; i < uniqueTagsArray.length; i++) {
-    console.log(uniqueTagsArray[i]);
     // Delete the Grid content
     dishGrid.innerHTML = ``;
     // If we search a Ingredients
