@@ -1,14 +1,5 @@
 class Dish {
-  constructor(
-    id,
-    name,
-    servings,
-    ingredients,
-    time,
-    description,
-    appliance,
-    ustensils
-  ) {
+  constructor(id, name, servings, ingredients, time, description, appliance, ustensils) {
     this.id = id;
     this.name = name;
     this.servings = servings;
@@ -42,8 +33,7 @@ class Dish {
       if (element.unit !== undefined) {
         // unit is define
         ingredient_unit = element.unit;
-      }
-        else {
+      } else {
         // unit is not define
         ingredient_unit = "";
       }
@@ -53,6 +43,15 @@ class Dish {
       <p>${ingredient_quantity} ${ingredient_unit}</p>
     </li>`;
     });
+
+    // Description Size (300)
+    let maxSize = 300;
+    let newDesc = this.description;
+
+    if (this.description.length > maxSize) {
+        let lastWhitespace = this.description.substr(0, maxSize - 1).lastIndexOf(" ")
+        newDesc = this.description.substr(0, lastWhitespace) + " ...";
+    }
 
     // return all the HTML CARD
     return `<article class="card">
@@ -70,7 +69,7 @@ class Dish {
           </ul>
           <div class="card__description-tutorial">
             <p>
-              ${this.description}
+              ${newDesc}
             </p>
           </div>
         </div>
