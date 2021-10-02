@@ -33,19 +33,23 @@ class Dish {
       if (element.unit !== undefined) {
         // unit is define
         ingredient_unit = element.unit;
+        if(ingredient_unit == "grammes")
+        {
+            ingredient_unit = "g"
+        }
       } else {
         // unit is not define
         ingredient_unit = "";
       }
 
       ingredientList += ` <li class="card__recipes-item">
-      <p class="card__recipes-item-title">${ingredient_name}\u00A0\</p>
-      <p>${ingredient_quantity} ${ingredient_unit}</p>
+      <span class="card__recipes-item-title">${ingredient_name}\u00A0\</span>
+      <span>${ingredient_quantity} ${ingredient_unit}</span>
     </li>`;
     });
 
     // Description Size (300)
-    let maxSize = 300;
+    let maxSize = 280;
     let newDesc = this.description;
 
     if (this.description.length > maxSize) {
