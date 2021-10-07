@@ -48,7 +48,7 @@ class Dish {
     </li>`;
     });
 
-    // Description Size (300)
+    // Description Size (280)
     let maxSize = 280;
     let newDesc = this.description;
 
