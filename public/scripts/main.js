@@ -13,10 +13,24 @@ function RemoveDuplicate(list) {
 
 // Create the HTML of Filter Button
 function CreateFilterButton(button, list) {
+   /* let itemList = [];
+    let dataList;*/
+
   button.innerHTML = ``;
   list.forEach((item) => {
     button.innerHTML += `<p class="filter-item">${item}</p> `;
+    //itemList.push(item);
   });
+/*
+  itemList.forEach((item) => {
+    dataList += `<option class="datalist-filter">${item}</option> `;
+  });;
+
+  button.parentElement.firstElementChild.firstElementChild.innerHTML = 
+  `<datalist id="items">
+  ${dataList}
+  </datalist>
+  <i class="fas fa-search dropdown-search__icon"></i>`;*/
 }
 
 // Create Grid
@@ -48,7 +62,15 @@ function AddTags(target, value) {
   let parent_item_Color = parent_item_Classname.substring(parent_item_Classname.indexOf("-") + 1);
 
   // Check if The Tag already here
-  if (tagsDiv.innerHTML.includes(target.innerHTML) || tagsDiv.innerHTML.includes(value)) {
+  if (
+    value !== undefined &&
+    tagsDiv.innerHTML.toLowerCase().includes(value.toLowerCase().toLowerCase())
+  ) {
+    alert("Vous recherchez déja par se tag");
+  } else if (
+    value == undefined &&
+    tagsDiv.innerHTML.toLowerCase().includes(target.innerHTML.toLowerCase())
+  ) {
     alert("Vous recherchez déja par se tag");
   } else {
     // Research manual (Specific Search bar)
@@ -67,13 +89,16 @@ function AddTags(target, value) {
         </div>`;
     }
     // Research by tags
-    let divTags = document.getElementsByClassName('tags-item')
+    let divTags = document.getElementsByClassName("tags-item");
 
     researchtag = [];
     for (let i = 0; i < divTags.length; i++) {
-        let search = [divTags[i].firstElementChild.textContent.toLowerCase(), divTags[i].className.substring(divTags[i].className.indexOf("item-") + 5)];
-        researchtag.push(search);
-      }
+      let search = [
+        divTags[i].firstElementChild.textContent.toLowerCase(),
+        divTags[i].className.substring(divTags[i].className.indexOf("item-") + 5),
+      ];
+      researchtag.push(search);
+    }
     ResearchByTags(researchtag);
   }
 
@@ -163,6 +188,59 @@ function ResearchByTags(researchtag) {
       });
     }
     FilterDishList = elementfiltered;
+    elementfiltered = [];
+  }
+  if (document.getElementsByClassName("card").length == 0) {
+    dishGrid.innerHTML =
+      "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc";
+  } else {
+    let newIngredientList = [];
+    let newApplianceList = [];
+    let newUstensilsList = [];
+
+    for (let i = 0; i < FilterDishList.length; i++) {
+      for (let j = 0; j < FilterDishList[i].ingredients.length; j++) {
+        let ingredient =
+          FilterDishList[i].ingredients[j].ingredient.charAt(0).toUpperCase() +
+          FilterDishList[i].ingredients[j].ingredient.slice(1).toLowerCase();
+        newIngredientList.push(ingredient);
+      }
+      for (let j = 0; j < FilterDishList[i].ustensils.length; j++) {
+        let ustensils =
+          FilterDishList[i].ustensils[j].charAt(0).toUpperCase() +
+          FilterDishList[i].ustensils[j].slice(1).toLowerCase();
+        newUstensilsList.push(ustensils);
+      }
+      let appliance =
+        FilterDishList[i].appliance.toLowerCase().charAt(0).toUpperCase() +
+        FilterDishList[i].appliance.slice(1).toLowerCase();
+      newApplianceList.push(appliance);
+    }
+
+    // No Duplicate Lists
+    let ingredientListFiltered = RemoveDuplicate(newIngredientList);
+    let applianceListFiltered = RemoveDuplicate(newApplianceList);
+    let ustensilsListFiltered = RemoveDuplicate(newUstensilsList);
+
+    // Buttons
+    const ingredientBtn = document.getElementById("ingredient-list");
+    const applianceBtn = document.getElementById("appliance-list");
+    const ustensilsBtn = document.getElementById("ustensils-list");
+
+    //Empty Buttons
+    ingredientBtn.innerHTML = ``;
+
+    CreateFilterButton(ingredientBtn, ingredientListFiltered);
+    CreateFilterButton(applianceBtn, applianceListFiltered);
+    CreateFilterButton(ustensilsBtn, ustensilsListFiltered);
+
+    const items = document.getElementsByClassName("filter-item");
+
+    for (let i = 0; i < items.length; i++) {
+      items[i].addEventListener("click", function (event) {
+        AddTags(event.target);
+      });
+    }
   }
 }
 
@@ -198,6 +276,10 @@ function GlobalSearch(value) {
         }
       }
     }
+  }
+  if (document.getElementsByClassName("card").length == 0) {
+    dishGrid.innerHTML =
+      "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc";
   }
 }
 
@@ -236,15 +318,19 @@ for (let i = 0; i < recipes.length; i++) {
 
   // List of all Ingredient
   dish.ingredients.forEach((item) => {
-    ingredientList.push(item.ingredient);
+    let ingredient =
+      item.ingredient.charAt(0).toUpperCase() + item.ingredient.slice(1).toLowerCase();
+    ingredientList.push(ingredient);
   });
 
   // List of all Appliance
-  applianceList.push(dish.appliance.toLowerCase());
+  applianceList.push(
+    dish.appliance.toLowerCase().charAt(0).toUpperCase() + dish.appliance.slice(1).toLowerCase()
+  );
 
   // List of all Ustensils
   dish.ustensils.forEach((item) => {
-    ustensilsList.push(item.toLowerCase());
+    ustensilsList.push(item.charAt(0).toUpperCase() + item.slice(1).toLowerCase());
   });
 }
 
