@@ -1,0 +1,23 @@
+.tags{
+    align-items: center;
+    display: flex;
+    .tags-item{
+        border-radius: 5px;
+        color: white;
+        display: flex;
+        margin: 10px 5px 0 5px;
+        padding: 10px;
+        p{
+            padding-right: 15px;
+        }
+    }
+    .item-blue{
+        background-color: $blue;
+    }
+    .item-green{
+        background-color: $green;
+    }
+    .item-red{
+        background-color: $red;
+    }
+}

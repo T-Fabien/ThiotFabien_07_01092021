@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Les Petits Plats</title>
     <!-- Kits -->
-    <!--Font Awsome-->
+    <!--Font Awesome-->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -13,10 +13,91 @@
       crossorigin="anonymous"
     />
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="./css/style.min.css" />
+    <!-- Style -->
+    <link rel="stylesheet" type="text/css" href="./style/style.min.css" />
+
+    <!-- Scripts -->
+    <script type="module" src="./scripts/main.js"></script>
   </head>
   <body>
-      
+    <header>
+      <img src="./images/logo_les_petits_plats.png" alt="" />
+    </header>
+    <main>
+      <div class="search">
+        <input
+          class="search__input"
+          id="researchbar"
+          type="text"
+          aria-label="Search through site content"
+          placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
+        />
+        <i class="fas fa-search search__icon" id="researchbar_icon"></i>
+      </div>
+      <div class="tags" id="tags"></div>
+      <div class="filters">
+        <div class="filters__dropdown filters__dropdown-blue">
+          <div class="dropdown">
+            <button class="dropbtn">
+              Ingredient
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <div class="dropdown-search">
+                <input
+                  class="dropdown-search__input"
+                  type="text"
+                  aria-label="Search through site content"
+                  placeholder="Rechercher un ingrédient"
+                />
+                <i class="fas fa-search dropdown-search__icon"></i>
+              </div>
+              <div class="dropdown-items" id="ingredient-list"></div>
+            </div>
+          </div>
+        </div>
+        <div class="filters__dropdown filters__dropdown-green">
+          <div class="dropdown">
+            <button class="dropbtn">
+              Appareil
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <div class="dropdown-search">
+                <input
+                  class="dropdown-search__input"
+                  type="text"
+                  aria-label="Search through site content"
+                  placeholder="Rechercher un appareil"
+                />
+                <i class="fas fa-search dropdown-search__icon"></i>
+              </div>
+              <div class="dropdown-items" id="appliance-list"></div>
+            </div>
+          </div>
+        </div>
+        <div class="filters__dropdown filters__dropdown-red">
+          <div class="dropdown">
+            <button class="dropbtn">
+              Ustensiles
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <div class="dropdown-search">
+                <input
+                  class="dropdown-search__input"
+                  type="text"
+                  aria-label="Search through site content"
+                  placeholder="Rechercher un ustensile"
+                />
+                <i class="fas fa-search dropdown-search__icon"></i>
+              </div>
+              <div class="dropdown-items" id="ustensils-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </main>
   </body>
 </html>

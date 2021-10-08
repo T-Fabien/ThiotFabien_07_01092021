@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "Roboto";
+    src: url("../font/Roboto-Light.ttf") format("truetype");
+  }
+
+@font-face {
+    font-family: "Roboto_gras";
+    src: url("../font/Roboto-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Shrikhand";
+    src: url("../font/Shrikhand-Regular.ttf") format("truetype");
+}
+
+*{
+    font-family: Roboto;
+}
+
+button{
+    font-family: Roboto_gras;
+}
