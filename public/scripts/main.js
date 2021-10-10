@@ -33,6 +33,57 @@ function CreateFilterButton(button, list) {
   <i class="fas fa-search dropdown-search__icon"></i>`;*/
 }
 
+// Reset Filter Button
+function ResetFilterButton(list){
+    let newIngredientList = [];
+    let newApplianceList = [];
+    let newUstensilsList = [];
+
+    for (let i = 0; i < list.length; i++) {
+      for (let j = 0; j < list[i].ingredients.length; j++) {
+        let ingredient =
+        list[i].ingredients[j].ingredient.charAt(0).toUpperCase() +
+        list[i].ingredients[j].ingredient.slice(1).toLowerCase();
+        newIngredientList.push(ingredient);
+      }
+      for (let j = 0; j < list[i].ustensils.length; j++) {
+        let ustensils =
+        list[i].ustensils[j].charAt(0).toUpperCase() +
+        list[i].ustensils[j].slice(1).toLowerCase();
+        newUstensilsList.push(ustensils);
+      }
+      let appliance =
+      list[i].appliance.toLowerCase().charAt(0).toUpperCase() +
+      list[i].appliance.slice(1).toLowerCase();
+      newApplianceList.push(appliance);
+    }
+
+    // No Duplicate Lists
+    let ingredientListFiltered = RemoveDuplicate(newIngredientList);
+    let applianceListFiltered = RemoveDuplicate(newApplianceList);
+    let ustensilsListFiltered = RemoveDuplicate(newUstensilsList);
+
+    // Buttons
+    const ingredientBtn = document.getElementById("ingredient-list");
+    const applianceBtn = document.getElementById("appliance-list");
+    const ustensilsBtn = document.getElementById("ustensils-list");
+
+    //Empty Buttons
+    ingredientBtn.innerHTML = ``;
+
+    CreateFilterButton(ingredientBtn, ingredientListFiltered);
+    CreateFilterButton(applianceBtn, applianceListFiltered);
+    CreateFilterButton(ustensilsBtn, ustensilsListFiltered);
+
+    const items = document.getElementsByClassName("filter-item");
+
+    for (let i = 0; i < items.length; i++) {
+      items[i].addEventListener("click", function (event) {
+        AddTags(event.target);
+      });
+    }
+  }
+
 // Create Grid
 function CreateGrid() {
   dishGrid.innerHTML = ``;
@@ -52,6 +103,7 @@ function CreateGrid() {
     let dishCard = dish.toGridcell();
     dishGrid.innerHTML += dishCard;
   }
+  ResetFilterButton(dishList);
 }
 
 // Add Tag under search bar
@@ -194,6 +246,7 @@ function ResearchByTags(researchtag) {
     dishGrid.innerHTML =
       "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc";
   } else {
+      ResetFilterButton(FilterDishList)/*
     let newIngredientList = [];
     let newApplianceList = [];
     let newUstensilsList = [];
@@ -240,7 +293,7 @@ function ResearchByTags(researchtag) {
       items[i].addEventListener("click", function (event) {
         AddTags(event.target);
       });
-    }
+    }*/
   }
 }
 
