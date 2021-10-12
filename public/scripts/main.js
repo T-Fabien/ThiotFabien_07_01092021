@@ -511,10 +511,7 @@ let alltags = [];
 
 searchbar.addEventListener("keyup", function (event) {
   let searchbarLength = searchbar.value.length;
-
-  console.log(searchbarLength);
   if (searchbarLength >= 3 || (event.key == "Backspace" && searchbarLength >= 3)) {
-      console.log(searchbar.value);
     GlobalSearch(searchbar.value);
     alltags = [];
     for (let i = 0; i < tags_item.length; i++) {
