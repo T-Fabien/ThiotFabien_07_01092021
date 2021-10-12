@@ -437,7 +437,7 @@ for (let i = 0; i < specific_search_icon.length; i++) {
   });
 }
 
-// Press enter
+// Press enter and filter on keyup
 for (let i = 0; i < specific_searchbar.length; i++) {
   specific_searchbar[i].addEventListener("keyup", function (event) {
     let specific_searchbarLength = specific_searchbar[i].value.length;
@@ -511,10 +511,9 @@ let alltags = [];
 
 searchbar.addEventListener("keydown", function (event) {
   let searchbarLength = searchbar.value.length + 1;
-  if (event.key == "Backspace" && searchbarLenght > 1) {
+  if (event.key == "Backspace" && searchbarLength > 1) {
     searchbarLength = searchbar.value.length - 1;
   }
-  console.log(searchbarLenght);
   if (searchbarLength >= 2 || (event.key == "Backspace" && searchbarLength >= 2)) {
     GlobalSearch(searchbar.value);
     alltags = [];
