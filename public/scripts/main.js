@@ -13,7 +13,7 @@ function RemoveDuplicate(list) {
 
 // Create the HTML of Filter Button
 function CreateFilterButton(button, list) {
-   /* let itemList = [];
+  /* let itemList = [];
     let dataList;*/
 
   button.innerHTML = ``;
@@ -21,7 +21,7 @@ function CreateFilterButton(button, list) {
     button.innerHTML += `<p class="filter-item">${item}</p> `;
     //itemList.push(item);
   });
-/*
+  /*
   itemList.forEach((item) => {
     dataList += `<option class="datalist-filter">${item}</option> `;
   });;
@@ -34,55 +34,54 @@ function CreateFilterButton(button, list) {
 }
 
 // Reset Filter Button
-function ResetFilterButton(list){
-    let newIngredientList = [];
-    let newApplianceList = [];
-    let newUstensilsList = [];
+function ResetFilterButton(list) {
+  let newIngredientList = [];
+  let newApplianceList = [];
+  let newUstensilsList = [];
 
-    for (let i = 0; i < list.length; i++) {
-      for (let j = 0; j < list[i].ingredients.length; j++) {
-        let ingredient =
+  for (let i = 0; i < list.length; i++) {
+    for (let j = 0; j < list[i].ingredients.length; j++) {
+      let ingredient =
         list[i].ingredients[j].ingredient.charAt(0).toUpperCase() +
         list[i].ingredients[j].ingredient.slice(1).toLowerCase();
-        newIngredientList.push(ingredient);
-      }
-      for (let j = 0; j < list[i].ustensils.length; j++) {
-        let ustensils =
-        list[i].ustensils[j].charAt(0).toUpperCase() +
-        list[i].ustensils[j].slice(1).toLowerCase();
-        newUstensilsList.push(ustensils);
-      }
-      let appliance =
+      newIngredientList.push(ingredient);
+    }
+    for (let j = 0; j < list[i].ustensils.length; j++) {
+      let ustensils =
+        list[i].ustensils[j].charAt(0).toUpperCase() + list[i].ustensils[j].slice(1).toLowerCase();
+      newUstensilsList.push(ustensils);
+    }
+    let appliance =
       list[i].appliance.toLowerCase().charAt(0).toUpperCase() +
       list[i].appliance.slice(1).toLowerCase();
-      newApplianceList.push(appliance);
-    }
-
-    // No Duplicate Lists
-    let ingredientListFiltered = RemoveDuplicate(newIngredientList);
-    let applianceListFiltered = RemoveDuplicate(newApplianceList);
-    let ustensilsListFiltered = RemoveDuplicate(newUstensilsList);
-
-    // Buttons
-    const ingredientBtn = document.getElementById("ingredient-list");
-    const applianceBtn = document.getElementById("appliance-list");
-    const ustensilsBtn = document.getElementById("ustensils-list");
-
-    //Empty Buttons
-    ingredientBtn.innerHTML = ``;
-
-    CreateFilterButton(ingredientBtn, ingredientListFiltered);
-    CreateFilterButton(applianceBtn, applianceListFiltered);
-    CreateFilterButton(ustensilsBtn, ustensilsListFiltered);
-
-    const items = document.getElementsByClassName("filter-item");
-
-    for (let i = 0; i < items.length; i++) {
-      items[i].addEventListener("click", function (event) {
-        AddTags(event.target);
-      });
-    }
+    newApplianceList.push(appliance);
   }
+
+  // No Duplicate Lists
+  let ingredientListFiltered = RemoveDuplicate(newIngredientList);
+  let applianceListFiltered = RemoveDuplicate(newApplianceList);
+  let ustensilsListFiltered = RemoveDuplicate(newUstensilsList);
+
+  // Buttons
+  const ingredientBtn = document.getElementById("ingredient-list");
+  const applianceBtn = document.getElementById("appliance-list");
+  const ustensilsBtn = document.getElementById("ustensils-list");
+
+  //Empty Buttons
+  ingredientBtn.innerHTML = ``;
+
+  CreateFilterButton(ingredientBtn, ingredientListFiltered);
+  CreateFilterButton(applianceBtn, applianceListFiltered);
+  CreateFilterButton(ustensilsBtn, ustensilsListFiltered);
+
+  const items = document.getElementsByClassName("filter-item");
+
+  for (let i = 0; i < items.length; i++) {
+    items[i].addEventListener("click", function (event) {
+      AddTags(event.target);
+    });
+  }
+}
 
 // Create Grid
 function CreateGrid() {
@@ -191,8 +190,18 @@ function DeleteTags(target) {
 // Research By Tags
 function ResearchByTags(researchtag) {
   // Variables
-  let FilterDishList = dishList;
+  let FilterDishList = [];
   let elementfiltered = [];
+
+  let dishName = document.getElementsByClassName("card__title-text");
+
+  for (let i = 0; i < dishList.length; i++) {
+    for (let j = 0; j < dishName.length; j++) {
+      if (dishList[i].name.toLowerCase() == dishName[j].innerHTML.toLowerCase()) {
+        FilterDishList.push(dishList[i]);
+      }
+    }
+  }
 
   // Delete Duplicate
   let stringArray = researchtag.map(JSON.stringify);
@@ -215,6 +224,7 @@ function ResearchByTags(researchtag) {
             // Show it
             let dishCard = element.toGridcell();
             dishGrid.innerHTML += dishCard;
+            break;
           }
         }
       });
@@ -246,7 +256,7 @@ function ResearchByTags(researchtag) {
     dishGrid.innerHTML =
       "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc";
   } else {
-      ResetFilterButton(FilterDishList)/*
+    ResetFilterButton(FilterDishList); /*
     let newIngredientList = [];
     let newApplianceList = [];
     let newUstensilsList = [];
@@ -407,6 +417,7 @@ CreateFilterButton(ustensilsBtn, ustensilsListFiltered);
 
 const tagsDiv = document.getElementById("tags");
 const items = document.getElementsByClassName("filter-item");
+const tags_item = document.getElementsByClassName("tags-item");
 
 for (let i = 0; i < items.length; i++) {
   items[i].addEventListener("click", function (event) {
@@ -429,9 +440,66 @@ for (let i = 0; i < specific_search_icon.length; i++) {
 // Press enter
 for (let i = 0; i < specific_searchbar.length; i++) {
   specific_searchbar[i].addEventListener("keyup", function (event) {
+    let specific_searchbarLength = specific_searchbar[i].value.length;
     if (event.keyCode === 13) {
       AddTags(event.target, specific_searchbar[i].value);
       specific_searchbar[i].value = "";
+    }
+    if (
+      specific_searchbarLength >= 1 ||
+      (event.key == "Backspace" && specific_searchbarLength > 1)
+    ) {
+      if (i == 0) {
+        let ingredientTagList = document
+          .getElementById("ingredient-list")
+          .getElementsByClassName("filter-item");
+        for (let j = 0; j < ingredientTagList.length; j++) {
+          if (
+            !ingredientTagList[j].innerHTML
+              .toLowerCase()
+              .includes(specific_searchbar[i].value.toLowerCase())
+          ) {
+            ingredientTagList[j].style.display = "none";
+          } else {
+            ingredientTagList[j].style.display = "block";
+          }
+        }
+      } else if (i == 1) {
+        let applianceTagList = document
+          .getElementById("appliance-list")
+          .getElementsByClassName("filter-item");
+        for (let j = 0; j < applianceTagList.length; j++) {
+          if (
+            !applianceTagList[j].innerHTML
+              .toLowerCase()
+              .includes(specific_searchbar[i].value.toLowerCase())
+          ) {
+            applianceTagList[j].style.display = "none";
+          } else {
+            applianceTagList[j].style.display = "block";
+          }
+        }
+      } else if (i == 2) {
+        let ustensilsTagList = document
+          .getElementById("ustensils-list")
+          .getElementsByClassName("filter-item");
+        for (let j = 0; j < ustensilsTagList.length; j++) {
+          if (
+            !ustensilsTagList[j].innerHTML
+              .toLowerCase()
+              .includes(specific_searchbar[i].value.toLowerCase())
+          ) {
+            ustensilsTagList[j].style.display = "none";
+          } else {
+            ustensilsTagList[j].style.display = "block";
+          }
+        }
+      }
+    } else {
+      for (let j = 0; j < document.getElementsByClassName("filter-item").length; j++) {
+        let filter_items = document.getElementsByClassName("filter-item");
+        filter_items[j].style.display = "block";
+      }
     }
   });
 }
@@ -439,14 +507,49 @@ for (let i = 0; i < specific_searchbar.length; i++) {
 // Research Bar (press Enter)
 const searchbar = document.getElementById("researchbar");
 const search_icon = document.getElementById("researchbar_icon");
+let alltags = [];
 
-searchbar.addEventListener("keyup", function (event) {
-  if (event.keyCode === 13) {
+searchbar.addEventListener("keydown", function (event) {
+  let searchbarLength = searchbar.value.length + 1;
+  if (event.key == "Backspace" && searchbarLenght > 1) {
+    searchbarLength = searchbar.value.length - 1;
+  }
+  console.log(searchbarLenght);
+  if (searchbarLength >= 2 || (event.key == "Backspace" && searchbarLength >= 2)) {
     GlobalSearch(searchbar.value);
+    alltags = [];
+    for (let i = 0; i < tags_item.length; i++) {
+      let search = [
+        tags_item[i].firstElementChild.innerHTML.toLowerCase(),
+        tags_item[i].className.substring(tags_item[i].className.indexOf("item-") + 5),
+      ];
+      alltags.push(search);
+    }
+    ResearchByTags(alltags);
+  } else {
+    GlobalSearch("");
+    alltags = [];
+    for (let i = 0; i < tags_item.length; i++) {
+      let search = [
+        tags_item[i].firstElementChild.innerHTML.toLowerCase(),
+        tags_item[i].className.substring(tags_item[i].className.indexOf("item-") + 5),
+      ];
+      alltags.push(search);
+    }
+    ResearchByTags(alltags);
   }
 });
 
 // Research Bar (click on icon)
 search_icon.addEventListener("click", function (event) {
-  GlobalSearch(searchbar.value);
+  if (searchbar.value.length > 2) {
+    GlobalSearch(searchbar.value);
+    ResearchByTags(researchtag);
+  }
 });
+
+/*
+if(){
+    element.style.display = "none";
+}
+})*/
