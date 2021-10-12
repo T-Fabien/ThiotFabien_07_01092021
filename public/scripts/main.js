@@ -509,12 +509,12 @@ const searchbar = document.getElementById("researchbar");
 const search_icon = document.getElementById("researchbar_icon");
 let alltags = [];
 
-searchbar.addEventListener("keydown", function (event) {
-  let searchbarLength = searchbar.value.length + 1;
-  if (event.key == "Backspace" && searchbarLength > 1) {
-    searchbarLength = searchbar.value.length - 1;
-  }
-  if (searchbarLength >= 2 || (event.key == "Backspace" && searchbarLength >= 2)) {
+searchbar.addEventListener("keyup", function (event) {
+  let searchbarLength = searchbar.value.length;
+
+  console.log(searchbarLength);
+  if (searchbarLength >= 3 || (event.key == "Backspace" && searchbarLength >= 3)) {
+      console.log(searchbar.value);
     GlobalSearch(searchbar.value);
     alltags = [];
     for (let i = 0; i < tags_item.length; i++) {
